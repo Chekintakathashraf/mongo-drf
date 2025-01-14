@@ -1,0 +1,8 @@
+venv/
+venv
+.env
+*.pyc
+*.pyo
+.sqllite3
+*.log
+*.db
