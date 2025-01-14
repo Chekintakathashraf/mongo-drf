@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    
+    'rest_framework',
+    'rest_framework.authtoken',
+    'myapp',
+    'djongo',
 ]
 
 MIDDLEWARE = [
@@ -75,11 +81,27 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'mongo_drf_db',  
+        'CLIENT': {
+            'host': 'mongodb://localhost:27017',  
+        }
     }
 }
 
+AUTHENTICATION_CLASSES = [
+    'rest_framework.authentication.TokenAuthentication',
+]
+
+# DRF settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -99,6 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'myapp.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
